@@ -1,22 +1,32 @@
 # rabbitmq-test
-Playing with a messaging system
+Playing with a messaging system using the [tuts](https://www.rabbitmq.com/tutorials/tutorial-one-javascript.html)
 
 Notes:
-- if a consumer does not acknowledge delivery - the msg will still be delivered *and* stored for later delivery. Verify with `$ rabbitmqctl list_queues name messages_ready messages_unacknowledged`.
+- `ch.ack(msg)` to prevent loosing data if worker dies. This marks messages as done. Otherwise they will be re-sent.
+- Set `durable` and `persistent` to true to persist the queue if rabbitMQ should die.
+- `ch.prefetch(<num>)` to only send `num` messages at a time to a consumer. Note: this may cause a build-up.
+- rabbitMQ runs on default port `5672`
 
 ### simple
-https://www.rabbitmq.com/tutorials/tutorial-one-javascript.html
-https://github.com/squaremo/amqp.node
 ```bash
-$ brew services run rabbitmq # runs on default port localhost:5672
 # start publisher
 $ node publisher.js
 # run as many consumers as you like in each tab
 $ node consumer.js
 ```
 
-# todos
-- [ ] [publisher confirms and consumer prefetch](https://www.rabbitmq.com/confirms.html)
+### workers
+```bash
+# run n times
+$ node taskMaker.js [num]
+$ node worker.js
+```
+
+# global todos
+- [x] node api [docs](http://www.squaremobius.net/amqp.node/channel_api.html)
+- [x] message durability
+- [ ] [publisher confirms](https://www.rabbitmq.com/confirms.html)
+- [ ] [consumer prefetch](https://www.rabbitmq.com/consumer-prefetch.html)
 
 # license
 MIT
