@@ -27,6 +27,7 @@ $ node worker.js
 - [x] message durability
 - [ ] [publisher confirms](https://www.rabbitmq.com/confirms.html)
 - [ ] [consumer prefetch](https://www.rabbitmq.com/consumer-prefetch.html)
+- [ ] [Acknowledging Multiple Deliveries at Once](https://www.rabbitmq.com/confirms.html)
 
 # license
 MIT
